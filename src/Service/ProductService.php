@@ -18,6 +18,10 @@ class ProductService
         $this->productRepository = $productRepository;
     }
 
+    public function getProductsPaginated(int $size = 10, int $page = 0) {
+       return $this->productRepository->getProductsPaginated($size, $page);
+    }
+
     public function createProducts($productsData) {
         foreach ($productsData as $productData) {
             extract($productData);

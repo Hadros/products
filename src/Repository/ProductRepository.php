@@ -39,7 +39,18 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public function getProductByProductId($value): ?Product
+    public function getProductsPaginated(int $size = 10, int $page = 0) {
+        $firstResult = $page * $size;
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($size)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getProductByProductId(int $value): ?Product
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.product_id = :val')
