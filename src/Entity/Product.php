@@ -42,9 +42,9 @@ class Product
         return $this->product_id;
     }
 
-    public function setProductId(int $product_id): self
+    public function setProductId(int $productId): self
     {
-        $this->product_id = $product_id;
+        $this->product_id = $productId;
 
         return $this;
     }
