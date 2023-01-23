@@ -18,16 +18,14 @@ class XmlParser
                 $description = $product->description->__toString();
                 $rating = (float) $product->rating->__toString();
                 $inet_price = (int) $product->inet_price->__toString();
-                if ($inet_price) {
-                    $price = (int) $product->price->__toString();
-                }
+                $price = $inet_price ? (int) $product->price->__toString() : 0;
                 $image = $product->image->__toString();
                 $productsData[] = [
                     'productId' => $productId,
                     'title' => $title,
                     'description' => $description,
                     'rating' => $rating,
-                    'price' => $inet_price ? $price : 0,
+                    'price' => $price,
                     'image' => $image,
                 ];
             }

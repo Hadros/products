@@ -60,7 +60,9 @@ class ParseProductsXmlCommand extends Command
                 'Error!',
                 'Not a valid URL.'
             ]);
-            return Command::INVALID;
+
+            // Commented out to parse local files
+            //return Command::INVALID;
         }
 
         try {

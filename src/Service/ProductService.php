@@ -38,9 +38,10 @@ class ProductService
             $product->setPrice($price);
             $product->setImage($image);
 
-            $this->entityManager->persist($product);
-            $this->entityManager->flush();
+            $this->productRepository->save($product);
         }
+
+        $this->entityManager->flush();
     }
 
 

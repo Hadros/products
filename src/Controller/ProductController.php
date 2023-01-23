@@ -13,7 +13,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ProductsController extends AbstractController
+class ProductController extends AbstractController
 {
     const PAGE_SIZE = 10;
 
@@ -33,14 +33,14 @@ class ProductsController extends AbstractController
         schema: new OA\Schema(type: 'integer')
     )]
     #[OA\Tag(name: 'products')]
-    public function index(ProductService $productService, SerializerInterface $serializer, Request $request): Response
+    public function getProducts(ProductService $productService, SerializerInterface $serializer, Request $request): JsonResponse
     {
         $page = $request->query->get('page') ?: 0;
         $products = $productService->getProductsPaginated(static::PAGE_SIZE, $page);
 
         $responseStr = $serializer->serialize($products, 'json');
 
-        $response = new JsonResponse($responseStr);
+        $response = new JsonResponse($responseStr, 200, ['Content-Type' => 'application/json'], true);
         $response->setEncodingOptions(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
         return $response;
