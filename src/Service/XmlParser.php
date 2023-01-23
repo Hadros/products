@@ -5,7 +5,10 @@ namespace App\Service;
 class XmlParser
 {
 
-    public function getProductsData(string $url) {
+    /**
+     * @throws \Exception
+     */
+    public function getProductsData(string $url): array {
         $productsData = [];
         try {
             $xml = simplexml_load_file($url);
@@ -30,7 +33,7 @@ class XmlParser
             }
         }
         catch (\Exception $exception) {
-
+            throw new \Exception($exception->getMessage());
         }
 
         return $productsData;

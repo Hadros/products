@@ -22,7 +22,7 @@ class ProductService
        return $this->productRepository->getProductsPaginated($size, $page);
     }
 
-    public function createProducts($productsData) {
+    public function createProducts(array $productsData): void {
         foreach ($productsData as $productData) {
             extract($productData);
 

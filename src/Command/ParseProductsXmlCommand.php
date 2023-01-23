@@ -63,13 +63,21 @@ class ParseProductsXmlCommand extends Command
             return Command::INVALID;
         }
 
-        $productsData = $this->xmlParser->getProductsData($input->getArgument('url'));
-        $this->productService->createProducts($productsData);
+        try {
+            $productsData = $this->xmlParser->getProductsData($input->getArgument('url'));
+            $this->productService->createProducts($productsData);
 
-
-        $output->writeln([
-            'Success',
-        ]);
+            $output->writeln([
+                'Success',
+            ]);
+        }
+        catch (\Exception $exception) {
+            $output->writeln([
+                'Error!',
+                $exception->getMessage()
+            ]);
+            return Command::FAILURE;
+        }
 
         $this->release();
 
